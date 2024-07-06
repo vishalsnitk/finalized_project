@@ -1,0 +1,137 @@
+{
+    "Environment": {
+        "Version": 1,
+        "Environment": {
+            "Label": "JournalPerformanceMonitor",
+            "Username": "b6so3e",
+            "Created": "22-Jun-2024 12:06:36",
+            "Node Name": "DI2INPUN0638WPC",
+            "Machine Type": "GenuineIntel Family 6 Model 5 Stepping 7, Intel(R) Xeon(R) Silver 4210R CPU @ 2.40GHz",
+            "Release": "NX 2412",
+            "Build": "NX 2412.600",
+            "Group": "Assemblies_nx2412.2024061601"
+        }
+    },
+    "StepDetails": [
+        {
+            "StepId": "0_LoadAssembly",
+            "MemoryState": {
+                "Bytes per Object": 491000000.0,
+                "Bytes in use": 1855000000.0,
+                "Max bytes in use": 2095000000.0,
+                "Bytes from OS": 496000000.0,
+                "Bytes for Rollback in use": 608000.0,
+                "OS Bytes for Rollback": 166000000.0
+            },
+            "AssemblyState": {
+                "Assembly Structure Details": {
+                    "Number of Fully Loaded Parts": 8,
+                    "Number of Partially Loaded Parts": 0,
+                    "Number of Minimally Loaded Parts": 37
+                }
+            },
+            "TimerState": {
+                "Timer Stats": {
+                    "Time required to perform an operation": 90.0000000
+                }
+            },
+            "NetworkState": {
+                "NetworkCount": {
+                    "NumSoaCalls": 57,
+                    "NumPdiCalls": 12,
+                    "NumFccCalls": 24700
+                }
+            }
+        },
+        {
+            "StepId": "1_OffsetRegionCommand",
+            "MemoryState": {
+                "Bytes per Object": 573000000.0,
+                "Bytes in use": 1915000000.0,
+                "Max bytes in use": 2115000000.0,
+                "Bytes from OS": 579000000.0,
+                "Bytes for Rollback in use": 55500000.0,
+                "OS Bytes for Rollback": 194000000.0
+            },
+            "AssemblyState": {
+                "Assembly Structure Details": {
+                    "Number of Fully Loaded Parts": 12,
+                    "Number of Partially Loaded Parts": 2,
+                    "Number of Minimally Loaded Parts": 1
+                }
+            },
+            "TimerState": {
+                "Timer Stats": {
+                    "Time required to perform an operation": 106.0000000
+                }
+            },
+            "NetworkState": {
+                "NetworkCount": {
+                    "NumSoaCalls": 20,
+                    "NumPdiCalls": 4,
+                    "NumFccCalls": 15
+                }
+            }
+        },
+        {
+            "StepId": "2_LoadS350BlockFully",
+            "MemoryState": {
+                "Bytes per Object": 1025000000.0,
+                "Bytes in use": 4230000000.0,
+                "Max bytes in use": 4440000000.0,
+                "Bytes from OS": 1070000000.0,
+                "Bytes for Rollback in use": 301000000.0,
+                "OS Bytes for Rollback": 356000000.0
+            },
+            "AssemblyState": {
+                "Assembly Structure Details": {
+                    "Number of Fully Loaded Parts": 18,
+                    "Number of Partially Loaded Parts": 2,
+                    "Number of Minimally Loaded Parts": 15
+                }
+            },
+            "TimerState": {
+                "Timer Stats": {
+                    "Time required to perform an operation": 147.0000000
+                }
+            },
+            "NetworkState": {
+                "NetworkCount": {
+                    "NumSoaCalls": 5,
+                    "NumPdiCalls": 8,
+                    "NumFccCalls": 274
+                }
+            }
+        },
+        {
+            "StepId": "3_MakeS350BlockWorkPart",
+            "MemoryState": {
+                "Bytes per Object": 1035000000.0,
+                "Bytes in use": 3340000000.0,
+                "Max bytes in use": 9040000000.0,
+                "Bytes from OS": 1070000000.0,
+                "Bytes for Rollback in use": 325000000.0,
+                "OS Bytes for Rollback": 356000000.0
+            },
+            "AssemblyState": {
+                "Assembly Structure Details": {
+                    "Number of Fully Loaded Parts": 32,
+                    "Number of Partially Loaded Parts": 2,
+                    "Number of Minimally Loaded Parts": 70
+                }
+            },
+            "TimerState": {
+                "Timer Stats": {
+                    "Time required to perform an operation": 153.0000000
+                }
+            },
+            "NetworkState": {
+                "NetworkCount": {
+                    "NumSoaCalls": 6,
+                    "NumPdiCalls": 4,
+                    "NumFccCalls": 2
+                }
+            }
+        }
+    ]
+}
