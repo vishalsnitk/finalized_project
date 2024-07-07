@@ -81,37 +81,42 @@
                  </div>
              </div>
          </div>
-        <div class="main-title">
-                 <h2>Stepwise Baseline Analysis</h2>
-             </div>
+         <div class="main-title">
+             <h2>Stepwise Baseline Analysis</h2>
+         </div>
 
-             <form method="post" action="/stepwise_analysis" class="filter-box">
-                 <div class="form-group">
-                     <label for="steps">Select Steps to Compare:</label>
-                     <select multiple class="form-control" id="steps" name="steps">
-                         {% for step in steps %}
-                             <option value="{{ step }}">{{ step }}</option>
-                         {% endfor %}
-                     </select>
+         <div class="filter-box">
+             <div class="form-group">
+                 <label for="steps">Select Steps to Compare:</label>
+                 <div id="steps" class="list-group">
+                     <a href="/stepwise_analysis/0_LoadAssembly" class="list-group-item list-group-item-action">0_LoadAssembly</a>
+                     <a href="/stepwise_analysis/1_OffsetRegionCommand" class="list-group-item list-group-item-action">1_OffsetRegionCommand</a>
+                     <a href="/stepwise_analysis/2_LoadS350BlockFully" class="list-group-item list-group-item-action">2_LoadS350BlockFully</a>
+                     <a href="/stepwise_analysis/3_MakeS350BlockWorkPart" class="list-group-item list-group-item-action">3_MakeS350BlockWorkPart</a>
                  </div>
-                 <button type="submit" class="btn btn-primary">Compare</button>
-             </form>
-
-             <div class="plot-container">
-                 {% if stepwise_plots %}
-                     {% for step, plot in stepwise_plots.items() %}
-                         <div class="title-box">
-                             <h3>{{ step }}</h3>
-                         </div>
-                         <div class="plot-container">
-                             <img src="data:image/png;base64,{{ plot }}" alt="{{ step }} Plot" class="img-fluid">
-                         </div>
-                     {% endfor %}
-                 {% endif %}
              </div>
          </div>
-     </div>
 
+         <div class="plot-container">
+             {% if stepwise_plots %}
+                 {% for step, plot in stepwise_plots.items() %}
+                     <div class="title-box">
+                         <h3>{{ step }}</h3>
+                     </div>
+                     <div class="plot-container">
+                         <img src="data:image/png;base64,{{ plot }}" alt="{{ step }} Plot" class="img-fluid">
+                     </div>
+                 {% endfor %}
+             {% endif %}
+         </div>
+         <div class="main-title">
+                <h2>Detailed Analysis of Steps</h2>
+            </div>
+
+         </div>
+   
+     </div>
+      
      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

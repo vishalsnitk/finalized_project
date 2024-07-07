@@ -42,9 +42,80 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
+<!--               sadsadassssssssssssssssssssssssssssssssssssssssssssss -->
+    <!-- <body>
+        <div class="container">
+            <div class="main-title">
+                <h1>Stepwise Baseline Analysis: {{ step_type }}</h1>
+            </div>
+
+            <div class="plot-container">
+                {% if stepwise_plots %}
+                    {% for category, plots in stepwise_plots.items() %}
+                        <div class="title-box">
+                            <h2>{{ category }} Plots for Step: {{ step_type }}</h2>
+                        </div>
+                        {% for step, plot in plots.items() %}
+                            <div class="title-box">
+                                <h3>{{ step }}</h3>
+                            </div>
+                            <div class="plot-container">
+                                <img src="data:image/png;base64,{{ plot }}" alt="{{ step }} Plot" class="img-fluid">
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="text-center">
+                <a href="/" class="btn btn-primary">Back to Home</a>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body> -->
+
+    <!--               sadsadassssssssssssssssssssssssssssssssssssssssssssss -->
+
+    <!-- <body>
+         <div class="container">
+             <div class="main-title">
+                 <h1>Stepwise Baseline Analysis: {{ step_type }}</h1>
+             </div>
+
+             <div class="plot-container">
+                 {% if stepwise_plots %}
+                     {% for category, plots in stepwise_plots.items() %}
+                         <div class="title-box">
+                             <h2>{{ category }} Plots for Step: {{ step_type }}</h2>
+                         </div>
+                         {% for step, plot in plots.items() %}
+                             <div class="title-box">
+                                 <h3>{{ step }}</h3>
+                             </div>
+                             <div class="plot-container">
+                                 <img src="data:image/png;base64,{{ plot }}" alt="{{ step }} Plot" class="img-fluid">
+                             </div>
+                         {% endfor %}
+                     {% endfor %}
+                 {% endif %}
+             </div>
+
+             <div class="text-center">
+                 <a href="/" class="btn btn-primary">Back to Home</a>
+             </div>
+         </div>
+
+         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     </body> -->
+
 </html>
