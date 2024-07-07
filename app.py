@@ -133,26 +133,6 @@ def plot(plot_type):
 
     return render_template('plot.html', plot_img=plot_img, title=title)
 
-# @app.route('/stepwise_analysis/<step_type>', methods=['GET'])
-# def stepwise_analysis(step_type):
-#     folder_path = os.path.join(app.root_path, 'static', 'all_json_files')
-#     df = load_data(folder_path)
-
-#     selected_steps = [step_type]
-#     if step_type == '0_LoadAssembly':
-#         stepwise_plots = generate_stepwise_memory_usage_plots(df, selected_steps)
-#     elif step_type == '1_OffsetRegionCommand':
-#         stepwise_plots = generate_stepwise_assembly_state_plots(df, selected_steps)
-#     elif step_type == '2_LoadS350BlockFully':
-#         stepwise_plots = generate_stepwise_timer_state_plots(df, selected_steps)
-#     elif step_type == '3_MakeS350BlockWorkPart':
-#         stepwise_plots = generate_stepwise_network_state_plots(df, selected_steps)
-#     else:
-#         return "Step type not found", 404
-
-#     return render_template('stepwise_analysis.html', 
-#                            step_type=step_type,
-#                            stepwise_plots=stepwise_plots)
 
 @app.route('/stepwise_analysis/<step_type>', methods=['GET'])
 def stepwise_analysis(step_type):
@@ -174,10 +154,15 @@ def stepwise_analysis(step_type):
         "Network State": network_plots
     }
 
+    # Debug print statements
+    print(f"Step type: {step_type}")
+    for category, plots in stepwise_plots.items():
+        for step, plot in plots.items():
+            print(f"Category: {category}, Step: {step}, Plot: {plot[:30]}...")
+
     return render_template('stepwise_analysis.html', 
                            step_type=step_type,
                            stepwise_plots=stepwise_plots)
-
 
 
 
