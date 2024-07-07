@@ -135,7 +135,11 @@ def plot_to_base64(fig):
     fig.savefig(buf, format='png')
     buf.seek(0)
     return base64.b64encode(buf.read()).decode('utf-8')
-
+    
+def convert_bytes_to_mb(df, columns):
+    for column in columns:
+        df[column] = df[column] / (1024 * 1024)
+    return df
 
 def generate_stepwise_memory_usage_plots(df, selected_steps):
     memory_columns = ['BytesPerObject', 'BytesInUse', 'MaxBytesInUse', 'BytesFromOS', 'BytesForRollbackInUse', 'OSBytesForRollback']
@@ -212,86 +216,133 @@ def generate_stepwise_network_state_plots(df, selected_steps):
         plt.close(fig)
     return stepwise_plots
 
-# import base64
-# from io import BytesIO
-
-# def plot_to_base64(fig):
-#     buf = BytesIO()
-#     fig.savefig(buf, format='png')
-#     buf.seek(0)
-#     image_base64 = base64.b64encode(buf.read()).decode('utf-8')
-#     buf.close()
-#     return image_base64
 
 
-# def generate_stepwise_memory_usage_plots(df, selected_steps):
-#     memory_columns = ['BytesPerObject', 'BytesInUse', 'MaxBytesInUse', 'BytesFromOS', 'BytesForRollbackInUse', 'OSBytesForRollback']
-#     stepwise_plots = {}
-#     for step in selected_steps:
-#         step_data = df[df['StepId'] == step]
-#         fig, ax = plt.subplots(figsize=(10, 5))
-#         for column in memory_columns:
-#             ax.plot(step_data['Baseline'], step_data[column], marker='o', label=column)
-#         ax.set_title(f'Step: {step}')
-#         ax.set_xlabel('Baseline')
-#         ax.set_ylabel('Memory Usage (bytes)')
-#         ax.legend()
-#         ax.tick_params(axis='x', rotation=45)
-#         ax.grid(True)
-#         stepwise_plots[step] = plot_to_base64(fig)
-#         plt.close(fig)
-#     return stepwise_plots
+## this below function will work for detailed analysis for baseline
 
-# def generate_stepwise_assembly_state_plots(df, selected_steps):
-#     assembly_columns = ['Number of Fully Loaded Parts', 'Number of Partially Loaded Parts', 'Number of Minimally Loaded Parts']
-#     stepwise_plots = {}
-#     for step in selected_steps:
-#         step_data = df[df['StepId'] == step]
-#         fig, ax = plt.subplots(figsize=(10, 5))
-#         for column in assembly_columns:
-#             ax.plot(step_data['Baseline'], step_data[column], marker='o', label=column)
-#         ax.set_title(f'Step: {step}')
-#         ax.set_xlabel('Baseline')
-#         ax.set_ylabel('Number of Parts')
-#         ax.legend()
-#         ax.tick_params(axis='x', rotation=45)
-#         ax.grid(True)
-#         stepwise_plots[step] = plot_to_base64(fig)
-#         plt.close(fig)
-#     return stepwise_plots
+# import seaborn as sns
+# import matplotlib.pyplot as plt
 
-# def generate_stepwise_timer_state_plots(df, selected_steps):
+# def generate_memory_usage_line_plot(df):
+#     memory_columns = [
+#         'BytesPerObject', 'BytesInUse', 'MaxBytesInUse', 'BytesFromOS',
+#         'BytesForRollbackInUse', 'OSBytesForRollback'
+#     ]
+#     fig, ax = plt.subplots(figsize=(14, 10))
+#     for column in memory_columns:
+#         sns.lineplot(data=df, x='StepId', y=column, marker='o', linewidth=2, label=column, ax=ax)
+#     ax.set_title('Comparison of Memory Usage Metrics with Respect to StepId', fontsize=16)
+#     ax.set_xlabel('StepId', fontsize=14)
+#     ax.set_ylabel('Memory Usage (MB)', fontsize=14)
+#     ax.legend(title='Memory Metrics', fontsize=12)
+#     ax.grid(True, linestyle='--', linewidth=0.5)
+#     fig.tight_layout()
+#     return plot_to_base64(fig)
+
+# def generate_assembly_state_line_plot(df):
+#     assembly_columns = [
+#         'Number of Fully Loaded Parts', 'Number of Partially Loaded Parts', 'Number of Minimally Loaded Parts'
+#     ]
+#     fig, ax = plt.subplots(figsize=(14, 10))
+#     for column in assembly_columns:
+#         sns.lineplot(data=df, x='StepId', y=column, marker='o', linewidth=2, label=column, ax=ax)
+#     ax.set_title('Comparison of Assembly State Metrics with Respect to StepId', fontsize=16)
+#     ax.set_xlabel('StepId', fontsize=14)
+#     ax.set_ylabel('Number of Parts', fontsize=14)
+#     ax.legend(title='Assembly State Metrics', fontsize=12)
+#     ax.grid(True, linestyle='--', linewidth=0.5)
+#     fig.tight_layout()
+#     return plot_to_base64(fig)
+
+# def generate_timer_state_line_plot(df):
 #     timer_columns = ['Time required to perform an operation']
-#     stepwise_plots = {}
-#     for step in selected_steps:
-#         step_data = df[df['StepId'] == step]
-#         fig, ax = plt.subplots(figsize=(10, 5))
-#         for column in timer_columns:
-#             ax.plot(step_data['Baseline'], step_data[column], marker='o', label=column)
-#         ax.set_title(f'Step: {step}')
-#         ax.set_xlabel('Baseline')
-#         ax.set_ylabel('Time (seconds)')
-#         ax.legend()
-#         ax.tick_params(axis='x', rotation=45)
-#         ax.grid(True)
-#         stepwise_plots[step] = plot_to_base64(fig)
-#         plt.close(fig)
-#     return stepwise_plots
+#     fig, ax = plt.subplots(figsize=(14, 10))
+#     for column in timer_columns:
+#         sns.lineplot(data=df, x='StepId', y=column, marker='o', linewidth=2, label=column, ax=ax)
+#     ax.set_title('Comparison of Timer State Metrics with Respect to StepId', fontsize=16)
+#     ax.set_xlabel('StepId', fontsize=14)
+#     ax.set_ylabel('Time (seconds)', fontsize=14)
+#     ax.legend(title='Timer State Metrics', fontsize=12)
+#     ax.grid(True, linestyle='--', linewidth=0.5)
+#     fig.tight_layout()
+#     return plot_to_base64(fig)
 
-# def generate_stepwise_network_state_plots(df, selected_steps):
+# def generate_network_state_line_plot(df):
 #     network_columns = ['NumSoaCalls', 'NumPdiCalls', 'NumFccCalls']
-#     stepwise_plots = {}
-#     for step in selected_steps:
-#         step_data = df[df['StepId'] == step]
-#         fig, ax = plt.subplots(figsize=(10, 5))
-#         for column in network_columns:
-#             ax.plot(step_data['Baseline'], step_data[column], marker='o', label=column)
-#         ax.set_title(f'Step: {step}')
-#         ax.set_xlabel('Baseline')
-#         ax.set_ylabel('Number of Calls')
-#         ax.legend()
-#         ax.tick_params(axis='x', rotation=45)
-#         ax.grid(True)
-#         stepwise_plots[step] = plot_to_base64(fig)
-#         plt.close(fig)
-#     return stepwise_plots
+#     fig, ax = plt.subplots(figsize=(14, 10))
+#     for column in network_columns:
+#         sns.lineplot(data=df, x='StepId', y=column, marker='o', linewidth=2, label=column, ax=ax)
+#     ax.set_title('Comparison of Network State Metrics with Respect to StepId', fontsize=16)
+#     ax.set_xlabel('StepId', fontsize=14)
+#     ax.set_ylabel('Number of Calls', fontsize=14)
+#     ax.legend(title='Network State Metrics', fontsize=12)
+#     ax.grid(True, linestyle='--', linewidth=0.5)
+#     fig.tight_layout()
+#     return plot_to_base64(fig)
+
+
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+def generate_memory_usage_line_plot(df):
+    memory_columns = [
+        'BytesPerObject', 'BytesInUse', 'MaxBytesInUse', 'BytesFromOS',
+        'BytesForRollbackInUse', 'OSBytesForRollback'
+    ]
+    fig, ax = plt.subplots(figsize=(14, 10))
+    for column in memory_columns:
+        sns.lineplot(data=df, x='StepId', y=column, marker='o', linewidth=2, label=column, ax=ax)
+    ax.set_title('Comparison of Memory Usage Metrics with Respect to StepId', fontsize=16)
+    ax.set_xlabel('StepId', fontsize=14)
+    ax.set_ylabel('Memory Usage (MB)', fontsize=14)
+    ax.legend(title='Memory Metrics', fontsize=12)
+    ax.grid(True, linestyle='--', linewidth=0.5)
+    fig.tight_layout()
+    return plot_to_base64(fig)
+
+def generate_assembly_state_line_plot(df):
+    assembly_columns = [
+        'Number of Fully Loaded Parts', 'Number of Partially Loaded Parts', 'Number of Minimally Loaded Parts'
+    ]
+    fig, ax = plt.subplots(figsize=(14, 10))
+    for column in assembly_columns:
+        sns.lineplot(data=df, x='StepId', y=column, marker='o', linewidth=2, label=column, ax=ax)
+    ax.set_title('Comparison of Assembly State Metrics with Respect to StepId', fontsize=16)
+    ax.set_xlabel('StepId', fontsize=14)
+    ax.set_ylabel('Number of Parts', fontsize=14)
+    ax.legend(title='Assembly State Metrics', fontsize=12)
+    ax.grid(True, linestyle='--', linewidth=0.5)
+    fig.tight_layout()
+    return plot_to_base64(fig)
+
+def generate_timer_state_line_plot(df):
+    timer_columns = ['Time required to perform an operation']
+    fig, ax = plt.subplots(figsize=(14, 10))
+    for column in timer_columns:
+        sns.lineplot(data=df, x='StepId', y=column, marker='o', linewidth=2, label=column, ax=ax)
+    ax.set_title('Comparison of Timer State Metrics with Respect to StepId', fontsize=16)
+    ax.set_xlabel('StepId', fontsize=14)
+    ax.set_ylabel('Time (seconds)', fontsize=14)
+    ax.legend(title='Timer State Metrics', fontsize=12)
+    ax.grid(True, linestyle='--', linewidth=0.5)
+    fig.tight_layout()
+    return plot_to_base64(fig)
+
+def generate_network_state_line_plot(df):
+    network_columns = ['NumSoaCalls', 'NumPdiCalls', 'NumFccCalls']
+    fig, ax = plt.subplots(figsize=(14, 10))
+    for column in network_columns:
+        sns.lineplot(data=df, x='StepId', y=column, marker='o', linewidth=2, label=column, ax=ax)
+    ax.set_title('Comparison of Network State Metrics with Respect to StepId', fontsize=16)
+    ax.set_xlabel('StepId', fontsize=14)
+    ax.set_ylabel('Number of Calls', fontsize=14)
+    ax.legend(title='Network State Metrics', fontsize=12)
+    ax.grid(True, linestyle='--', linewidth=0.5)
+    fig.tight_layout()
+    return plot_to_base64(fig)
+
+
+
+
+

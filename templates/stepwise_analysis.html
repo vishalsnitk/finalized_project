@@ -4,12 +4,43 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Stepwise Analysis</title>
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+     {% extends "base.html" %}
+
+     {% block title %}Stepwise Analysis{% endblock %}
+
+     {% block content %}
+      <style>
+          .plot-container {
+              text-align: center;
+              margin: 20px 0;
+          }
+          .title-box {
+              background-color: #C4FFEE;
+               color: black; /* Added this line to set text color to black */
+              padding: 15px;
+              border-radius: 5px;
+              margin-bottom: 20px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+          .main-title {
+              background-color: #007bff;
+              color: white;
+              padding: 20px;
+              border-radius: 5px;
+              text-align: center;
+              margin-bottom: 30px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
+          .filter-box {
+              margin-bottom: 20px;
+          }
+      </style>
  </head>
  <body>
      <div class="container">
          <div class="main-title">
-             <h1>Stepwise Baseline Analysis: {{ step_type }}</h1>
+             <h1>Stepwise Baseline Analysis</h1>
          </div>
 
          <div class="plot-container">
@@ -34,6 +65,7 @@
              <a href="/" class="btn btn-primary">Back to Home</a>
          </div>
      </div>
+      {% endblock %}
 
      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

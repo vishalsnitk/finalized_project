@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-    <!-- Bootstrap CSS -->
+    <title>Baseline Analysis: {{ baseline }}</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     {% extends "base.html" %}
 
-     {% block title %}Stepwise Analysis{% endblock %}
+    {% block title %}Stepwise Analysis{% endblock %}
 
-     {% block content %}
+    {% block content %}
     <style>
         .plot-container {
             text-align: center;
@@ -39,16 +38,42 @@
 <body>
     <div class="container">
         <div class="main-title">
-            <h1>{{ title }}</h1>
+            <h1>Baseline Analysis: {{ baseline }}</h1>
+        </div>
+
+        <div class="title-box">
+            <h2>Memory Usage</h2>
         </div>
         <div class="plot-container">
-            <img src="data:image/png;base64,{{ plot_img }}" alt="{{ title }}" class="img-fluid">
+            <img src="data:image/png;base64,{{ memory_plot }}" alt="Memory Usage Plot" class="img-fluid">
         </div>
+
+        <div class="title-box">
+            <h2>Assembly State</h2>
+        </div>
+        <div class="plot-container">
+            <img src="data:image/png;base64,{{ assembly_plot }}" alt="Assembly State Plot" class="img-fluid">
+        </div>
+
+        <div class="title-box">
+            <h2>Timer State</h2>
+        </div>
+        <div class="plot-container">
+            <img src="data:image/png;base64,{{ timer_plot }}" alt="Timer State Plot" class="img-fluid">
+        </div>
+
+        <div class="title-box">
+            <h2>Network State</h2>
+        </div>
+        <div class="plot-container">
+            <img src="data:image/png;base64,{{ network_plot }}" alt="Network State Plot" class="img-fluid">
+        </div>
+
         <div class="text-center">
             <a href="/" class="btn btn-primary">Back to Home</a>
         </div>
     </div>
-  {% endblock %}
+      {% endblock %}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

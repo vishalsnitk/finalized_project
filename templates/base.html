@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Data Visualization{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: rgb(0, 0, 40);
+            color: white;
+        }
+        .navbar-custom {
+            background-color: rgb(0, 0, 40);
+        }
+        .sidebar {
+            background-color: rgb(196, 255, 238);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            color: black;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .container-main {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .btn-custom {
+            background-color: rgb(196, 255, 238);
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <!-- <nav class="navbar navbar-expand-lg navbar-custom">
+        <a class="navbar-brand text-white" href="#">Welcome to the Data Visualization</a>
+    </nav> -->
+    <div class="sidebar">
+        <a href="#full-data-analysis" data-toggle="collapse">Full Data Analysis</a>
+        <div id="full-data-analysis" class="collapse">
+            <a href="/memory_usage" class="ml-3">Memory Usage by Baseline and Step</a>
+            <a href="/assembly_state" class="ml-3">Assembly State by Baseline and Step</a>
+            <a href="/timer_state" class="ml-3">Timer State by Baseline and Step</a>
+            <a href="/network_state" class="ml-3">Network State by Baseline and Step</a>
+        </div>
+        <a href="#stepwise-baseline-analysis" data-toggle="collapse">Stepwise Baseline Analysis</a>
+        <div id="stepwise-baseline-analysis" class="collapse">
+            <a href="/stepwise_analysis/0_LoadAssembly" class="ml-3">0_LoadAssembly</a>
+            <a href="/stepwise_analysis/1_OffsetRegionCommand" class="ml-3">1_OffsetRegionCommand</a>
+            <a href="/stepwise_analysis/2_LoadS350BlockFully" class="ml-3">2_LoadS350BlockFully</a>
+            <a href="/stepwise_analysis/3_MakeS350BlockWorkPart" class="ml-3">3_MakeS350BlockWorkPart</a>
+        </div>
+        <a href="#detailed-baseline-analysis" data-toggle="collapse">Detailed Analysis of Baseline</a>
+        <div id="detailed-baseline-analysis" class="collapse">
+            <a href="/baseline_analysis/Assemblies_nx2412.2024061501" class="ml-3">Assemblies_nx2412.2024061501</a>
+            <a href="/baseline_analysis/Assemblies_nx2412.2024061601" class="ml-3">Assemblies_nx2412.2024061601</a>
+            <a href="/baseline_analysis/Assemblies_nx2412.2024061701" class="ml-3">Assemblies_nx2412.2024061701</a>
+            <a href="/baseline_analysis/Assemblies_nx2412.2024061801" class="ml-3">Assemblies_nx2412.2024061801</a>
+            <a href="/baseline_analysis/Assemblies_nx2412.2024061401" class="ml-3">Assemblies_nx2412.2024061401</a>
+        </div>
+    </div>
+    <div class="container-main">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

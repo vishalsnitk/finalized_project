@@ -11,7 +11,8 @@
              margin: 20px 0;
          }
          .title-box {
-             background-color: #f8f9fa;
+             background-color: #C4FFEE;
+             color: black; /* Added this line to set text color to black */
              padding: 15px;
              border-radius: 5px;
              margin-bottom: 20px;
@@ -32,7 +33,7 @@
      </style>
  </head>
  <body>
-     <div class="container">
+     <!-- <div class="container">
          <div class="main-title">
              <h1>Welcome to the Data Visualization</h1>
          </div>
@@ -110,13 +111,118 @@
              {% endif %}
          </div>
          <div class="main-title">
-                <h2>Detailed Analysis of Steps</h2>
-            </div>
+                <h2>Detailed Analysis of Baseline</h2>
+        </div>
+         <div class="filter-box">
+             <div class="form-group">
+                 <label for="baselines">Select Baseline to Analyze:</label>
+                 <div id="baselines" class="list-group" style="max-height: 200px; overflow-y: scroll;">
+                     {% for baseline in baselines %}
+                         <a href="/baseline_analysis/{{ baseline }}" class="list-group-item list-group-item-action">{{ baseline }}</a>
+                     {% endfor %}
+                 </div>
+             </div>
+         </div> -->
+     {% extends "base.html" %}
 
-         </div>
-   
+     {% block title %}Home{% endblock %}
+
+     {% block content %}
+     <div class="main-title">
+         <h1>Welcome to the Data Visualization</h1>
      </div>
-      
+
+     <div class="row">
+         <div class="col-md-6">
+             <div class="title-box">
+                 <h2>Memory Usage by Baseline and Step</h2>
+             </div>
+             <div class="plot-container">
+                 <a href="/plot/memory_usage">
+                     <img src="data:image/png;base64,{{ plot_memory_usage }}" alt="Memory Usage Plot" class="img-fluid">
+                 </a>
+             </div>
+         </div>
+         <div class="col-md-6">
+             <div class="title-box">
+                 <h2>Assembly State by Baseline and Step</h2>
+             </div>
+             <div class="plot-container">
+                 <a href="/plot/assembly_state">
+                     <img src="data:image/png;base64,{{ plot_assembly_state }}" alt="Assembly State Plot" class="img-fluid">
+                 </a>
+             </div>
+         </div>
+     </div>
+     <div class="row">
+         <div class="col-md-6">
+             <div class="title-box">
+                 <h2>Timer State by Baseline and Step</h2>
+             </div>
+             <div class="plot-container">
+                 <a href="/plot/timer_state">
+                     <img src="data:image/png;base64,{{ plot_timer_state }}" alt="Timer State Plot" class="img-fluid">
+                 </a>
+             </div>
+         </div>
+         <div class="col-md-6">
+             <div class="title-box">
+                 <h2>Network State by Baseline and Step</h2>
+             </div>
+             <div class="plot-container">
+                 <a href="/plot/network_state">
+                     <img src="data:image/png;base64,{{ plot_network_state }}" alt="Network State Plot" class="img-fluid">
+                 </a>
+             </div>
+         </div>
+     </div>
+
+     <div class="main-title">
+         <h2>Stepwise Baseline Analysis</h2>
+     </div>
+
+     <div class="filter-box">
+         <div class="form-group">
+             <label for="steps">Select Steps to Compare:</label>
+             <div id="steps" class="list-group">
+                 <a href="/stepwise_analysis/0_LoadAssembly" class="list-group-item list-group-item-action">0_LoadAssembly</a>
+                 <a href="/stepwise_analysis/1_OffsetRegionCommand" class="list-group-item list-group-item-action">1_OffsetRegionCommand</a>
+                 <a href="/stepwise_analysis/2_LoadS350BlockFully" class="list-group-item list-group-item-action">2_LoadS350BlockFully</a>
+                 <a href="/stepwise_analysis/3_MakeS350BlockWorkPart" class="list-group-item list-group-item-action">3_MakeS350BlockWorkPart</a>
+             </div>
+         </div>
+     </div>
+
+     <div class="plot-container">
+         {% if stepwise_plots %}
+             {% for step, plot in stepwise_plots.items() %}
+                 <div class="title-box">
+                     <h3>{{ step }}</h3>
+                 </div>
+                 <div class="plot-container">
+                     <img src="data:image/png;base64,{{ plot }}" alt="{{ step }} Plot" class="img-fluid">
+                 </div>
+             {% endfor %}
+         {% endif %}
+     </div>
+
+     <div class="main-title">
+         <h2>Detailed Analysis of Baseline</h2>
+     </div>
+     <div class="filter-box">
+         <div class="form-group">
+             <label for="baselines">Select Baseline to Analyze:</label>
+             <div id="baselines" class="list-group" style="max-height: 200px; overflow-y: scroll;">
+                 {% for baseline in baselines %}
+                     <a href="/baseline_analysis/{{ baseline }}" class="list-group-item list-group-item-action">{{ baseline }}</a>
+                 {% endfor %}
+             </div>
+         </div>
+     </div>
+
+     {% endblock %}
+
+
      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -129,124 +235,3 @@
 
 
 
- <!-- <!DOCTYPE html>
- <html lang="en">
- <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Home</title>
-     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-     <style>
-         .plot-container {
-             text-align: center;
-             margin: 20px 0;
-         }
-         .title-box {
-             background-color: #f8f9fa;
-             padding: 15px;
-             border-radius: 5px;
-             margin-bottom: 20px;
-             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-         }
-         .main-title {
-             background-color: #007bff;
-             color: white;
-             padding: 20px;
-             border-radius: 5px;
-             text-align: center;
-             margin-bottom: 30px;
-             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-         }
-         .filter-box {
-             margin-bottom: 20px;
-         }
-     </style>
- </head>
- <body>
-     <div class="container">
-         <div class="main-title">
-             <h1>Welcome to the Data Visualization App</h1>
-         </div>
-
-         <div class="row">
-             <div class="col-md-6">
-                 <div class="title-box">
-                     <h2>Memory Usage by Baseline and Step</h2>
-                 </div>
-                 <div class="plot-container">
-                     <a href="/plot/memory_usage">
-                         <img src="data:image/png;base64,{{ plot_memory_usage }}" alt="Memory Usage Plot" class="img-fluid">
-                     </a>
-                 </div>
-             </div>
-             <div class="col-md-6">
-                 <div class="title-box">
-                     <h2>Assembly State by Baseline and Step</h2>
-                 </div>
-                 <div class="plot-container">
-                     <a href="/plot/assembly_state">
-                         <img src="data:image/png;base64,{{ plot_assembly_state }}" alt="Assembly State Plot" class="img-fluid">
-                     </a>
-                 </div>
-             </div>
-         </div>
-         <div class="row">
-             <div class="col-md-6">
-                 <div class="title-box">
-                     <h2>Timer State by Baseline and Step</h2>
-                 </div>
-                 <div class="plot-container">
-                     <a href="/plot/timer_state">
-                         <img src="data:image/png;base64,{{ plot_timer_state }}" alt="Timer State Plot" class="img-fluid">
-                     </a>
-                 </div>
-             </div>
-             <div class="col-md-6">
-                 <div class="title-box">
-                     <h2>Network State by Baseline and Step</h2>
-                 </div>
-                 <div class="plot-container">
-                     <a href="/plot/network_state">
-                         <img src="data:image/png;base64,{{ plot_network_state }}" alt="Network State Plot" class="img-fluid">
-                     </a>
-                 </div>
-             </div>
-         </div>
-
-         <hr>
-
-         <div class="main-title">
-             <h2>Stepwise Baseline Analysis</h2>
-         </div>
-
-         <form method="post" action="/stepwise_analysis" class="filter-box">
-             <div class="form-group">
-                 <label for="steps">Select Steps to Compare:</label>
-                 <select multiple class="form-control" id="steps" name="steps">
-                     {% for step in steps %}
-                         <option value="{{ step }}">{{ step }}</option>
-                     {% endfor %}
-                 </select>
-             </div>
-             <button type="submit" class="btn btn-primary">Compare</button>
-         </form>
-
-         <div class="plot-container">
-             {% if stepwise_plots %}
-                 {% for step, plot in stepwise_plots.items() %}
-                     <div class="title-box">
-                         <h3>{{ step }}</h3>
-                     </div>
-                     <div class="plot-container">
-                         <img src="data:image/png;base64,{{ plot }}" alt="{{ step }} Plot" class="img-fluid">
-                     </div>
-                 {% endfor %}
-             {% endif %}
-         </div>
-     </div>
-
-     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
- </body>
- </html> -->
